@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <ImageView 
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_launcher" />
+        
+        <TextView 
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content"
+            style="@style/label"
+            android:text="@string/show_label_nome"/>
+        <EditText 
+            android:id="@+id/nomeCadastro"
+            android:layout_height="wrap_content" 
+            android:layout_width="fill_parent"
+            style="@style/campo_texto"
+            android:hint="Preencha com um nome"/>
+        
+        <TextView 
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content"
+            style="@style/label"
+            android:text="Idade"/>
+        <EditText 
+            android:id="@+id/idadeCadastro"
+            android:layout_height="wrap_content" 
+            android:layout_width="fill_parent"
+            style="@style/campo_texto"
+            android:numeric="integer"
+            android:hint="Preencha com sua idade"/>
+        
+        <TextView 
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content"
+            style="@style/label"
+            android:text="@string/show_label_estado_cidade"/>
+        <LinearLayout 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Spinner
+                 android:id="@+id/comboboxEstados"
+                 android:layout_width="0dp"
+                 style="@style/campo_texto"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="2"
+                 />
+            <EditText
+                android:id="@+id/cidadeCadastro" 
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"/>
+        </LinearLayout>
+        
+        <TextView 
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content"
+            style="@style/label"
+            android:text="@string/show_label_email"/>
+        <EditText
+            android:id="@+id/emailCadastro" 
+            android:layout_height="wrap_content" 
+            android:layout_width="fill_parent"/>
+        
+        <TextView 
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content"
+            style="@style/label"
+            android:text="@string/show_label_telefone"/>
+        <EditText android:layout_height="wrap_content" android:layout_width="fill_parent"/>
+        
+        <TextView 
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content"
+            style="@style/label"
+            android:text="@string/show_label_celular"/>
+        <EditText android:layout_height="wrap_content" android:layout_width="fill_parent"/>
+
+       
+    
+    	<CheckBox
+    	    android:id="@+id/checkBoxTrabalhador"
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="wrap_content"
+    	    android:text="Trabalhador"/>
+    	<CheckBox
+    	    android:id="@+id/checkBoxEstudante"
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="wrap_content"
+    	    android:text="Estudante"/>
+    	
+    	<RadioGroup 
+    	    android:id="@+id/tipoPessoa"
+    	    android:orientation="vertical"
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="wrap_content">
+	    	<RadioButton
+	    	    android:id="@+id/radioPessoaJuridica"
+	    	    android:layout_width="fill_parent"
+	    	    android:layout_height="wrap_content"
+	    	    android:text="Pessoa Jurídica"/>
+	    	<RadioButton
+	    	    android:id="@+id/radioPessoaFisica"
+	    	    android:layout_width="fill_parent"
+	    	    android:layout_height="wrap_content"
+	    	    android:text="Pessoa Fisica"/>    
+    	</RadioGroup>
+    	
+        <Button
+            android:id="@+id/salvarUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Salvar" />
+    </LinearLayout>
+</ScrollView>
