@@ -8,10 +8,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class ShowActivity extends Activity{
+
+    private ListView listView;
+    private ArrayList<String> list;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
@@ -20,32 +27,33 @@ public class ShowActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.activity_show);
+
+		listView = (ListView) findViewById(R.id.lista);
 		
-		String[] listaDeNomesASeremListados = new String[] { "Android", "iPhone", "WindowsMobile",
-			        "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-			        "Linux", "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux",
-			        "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux", "OS/2",
-			        "Android", "iPhone", "WindowsMobile" };
-		
-		ListView listView = (ListView) findViewById(R.id.lista);
-		
-		ArrayList<String> list = new ArrayList<String>();
+		list = new ArrayList<String>();
 		
 		Context contexto = getApplicationContext();
     	UsuarioDAO usuarioDAO= new UsuarioDAO(contexto);
     	
     	list = usuarioDAO.getUsuarios();
-		
-    	
-	    //for (int i = 0; i < listaDeNomesASeremListados.length; ++i) {
-    	//  list.add(listaDeNomesASeremListados[i]);
-    	//}
-	    
-	    
+
 	    final StableArrayAdapter adapter = new StableArrayAdapter(this, android.R.layout.simple_list_item_1, list);
 	    
 	    listView.setAdapter(adapter);
-	    
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+
+                String item = ((TextView)arg1).getText().toString();
+
+                Context contexto = getApplicationContext();
+                Utils.setMensagem(item, contexto);
+
+                adapter.remove(item);
+            }
+        });
 	}
 	
 	private class StableArrayAdapter extends ArrayAdapter<String> {
@@ -73,6 +81,7 @@ public class ShowActivity extends Activity{
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+
 		if(item.getItemId()==android.R.id.home) {
 			finish();
 		}

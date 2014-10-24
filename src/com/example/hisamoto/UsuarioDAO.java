@@ -32,7 +32,15 @@ public class UsuarioDAO {
 
 		db.insert("usuario", null, valores);
 	}
-	
+
+    public void deletar(int id) {
+
+        ContentValues valores = new ContentValues();
+        valores.put("id", id);
+
+        db.delete("usuario", "_id=" + id, new String[] {});
+    }
+
 	public void listarUsuarios() {
 		try {
     		String[] colunas = {"nome", "email"};
@@ -75,7 +83,7 @@ public class UsuarioDAO {
 		final ArrayList<String> list = new ArrayList<String>();
 		
 		try {
-    		String[] colunas = {"nome", "email"};
+    		String[] colunas = {"id", "nome", "email"};
     		cursor = db.query(
     						false, 
     						"usuario", 

@@ -3,6 +3,8 @@ package com.example.hisamoto;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
+import android.widget.*;
 import com.example.hisamoto.entidades.Estado;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -11,12 +13,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
 
 public class FormActivity extends Activity {
 	
@@ -113,28 +109,34 @@ public class FormActivity extends Activity {
 					Log.i("agenda", "Estudante: Não");
 				}
 				Log.i("agenda", "Tipo de Pessoa:"+tipoPessoa.getCheckedRadioButtonId());
-				
+
+                Intent it = new Intent();
+                it.setClass(contexto, MainActivity.class);
+                startActivity(it);
+
+                Utils.setMensagem("Usuário " + nome.getText().toString() + " cadastrado com sucesso!", contexto);
+
 			}
 		});
-		
+
 	}
-	
+
 	public void setMensagem(String titulo, String mensagem) {
-		
+
     	AlertDialog.Builder caixaDialog = new AlertDialog.Builder(FormActivity.this);
 		caixaDialog.setMessage(mensagem);
 		caixaDialog.setTitle(titulo);
 		caixaDialog.setNeutralButton("OK", null);
 		caixaDialog.show();
     }
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if(item.getItemId()==android.R.id.home) {
 			Log.i("agenda", "botao voltar");
 			finish();
 		}
-	
+
 		// TODO Auto-generated method stub
 		return super.onOptionsItemSelected(item);
 	}
