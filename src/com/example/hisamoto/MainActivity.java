@@ -8,13 +8,27 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.example.hisamoto.observer.ObserverTeste;
 
-public class MainActivity extends Activity {
+import java.util.Observable;
+import java.util.Observer;
+
+public class MainActivity extends Activity implements Observer{
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // startService(new Intent(getApplicationContext(), ServiceTeste.class));
+        startService(new Intent("INICIAR_SERVICO"));
+
+        Log.i("servico", "Prova que é thread");
+
+        ObserverTeste.getInstance().start();
+        ObserverTeste.getInstance().addObserver(this);
+
+
+        // MainActivity
     }
     
     public void setMensagem(String titulo, String mensagem) {
@@ -73,5 +87,10 @@ public class MainActivity extends Activity {
     	it.setClass(this, ShowActivity.class);
     	it.putExtra("valor_nome", "Leandro Shindi Ekamoto");
     	startActivity(it);
+    }
+
+    @Override
+    public void update(Observable observable, Object data) {
+        Log.i("observer", data.toString());
     }
 }

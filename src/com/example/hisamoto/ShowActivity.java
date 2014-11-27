@@ -1,20 +1,20 @@
 package com.example.hisamoto;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import com.example.hisamoto.observer.ObserverTeste;
 
-public class ShowActivity extends Activity{
+public class ShowActivity extends Activity implements Observer{
 
     private ListView listView;
     private ArrayList<String> list;
@@ -54,9 +54,17 @@ public class ShowActivity extends Activity{
                 adapter.remove(item);
             }
         });
+
+        ObserverTeste.getInstance().start();
+        ObserverTeste.getInstance().addObserver(this);
 	}
-	
-	private class StableArrayAdapter extends ArrayAdapter<String> {
+
+    @Override
+    public void update(Observable observable, Object data) {
+        Log.i("observer", "ShowActivity: " + data.toString());
+    }
+
+    private class StableArrayAdapter extends ArrayAdapter<String> {
 
 		HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
 
