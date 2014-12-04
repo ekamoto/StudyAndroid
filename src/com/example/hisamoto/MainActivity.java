@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.example.hisamoto.broadcast.BroadCastTeste;
 import com.example.hisamoto.observer.ObserverTeste;
 
 import java.util.Observable;
@@ -27,7 +29,9 @@ public class MainActivity extends Activity implements Observer{
         ObserverTeste.getInstance().start();
         ObserverTeste.getInstance().addObserver(this);
 
+        Context contexto = getApplicationContext();
 
+        contexto.registerReceiver(new BroadCastTeste(), new IntentFilter("HisamotoBroadCast"));
         // MainActivity
     }
     
