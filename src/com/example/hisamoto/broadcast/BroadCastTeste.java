@@ -15,6 +15,8 @@ public class BroadCastTeste extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         String nome = intent.getStringExtra("nome");
-        Log.i("broadcasthisamoto", "[BROADCAST] Mensagem recebido por broadcast: " + nome);
+        String gmail = intent.getStringExtra("gmail");
+
+        Log.i("broadcasthisamoto", "[BROADCAST] Mensagem recebido por broadcast: " + nome + " email:" + gmail);
     }
 }
