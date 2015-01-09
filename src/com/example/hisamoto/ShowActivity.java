@@ -1,10 +1,14 @@
 package com.example.hisamoto;
 
+import java.io.File;
 import java.util.*;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -57,7 +61,32 @@ public class ShowActivity extends Activity implements Observer{
 
         ObserverTeste.getInstance().start();
         ObserverTeste.getInstance().addObserver(this);
-	}
+
+        // Pegando valor de res/values/strings.xml
+        String developer = getResources().getString(R.string.developer);
+
+        Log.i("Hisamoto", "Retornando mensagem de string: " + developer);
+
+
+        if(false) {
+            // Abre o browser e acessa o link
+            Uri uri = Uri.parse("http://www.android.com");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+
+            // Abre acesso a camera e salva imagem
+            uri = Uri.fromFile(new File("/sdcard/LivroDeAndroid/hello_camera.jpg"));
+            intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+            startActivity(intent);
+
+            // Abrir tela de contatos
+            uri = Uri.parse("content://contacts/people/");
+            intent = new Intent(Intent.ACTION_VIEW, uri);
+
+            startActivity(intent);
+        }
+    }
 
     @Override
     public void update(Observable observable, Object data) {
