@@ -16,6 +16,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import com.example.hisamoto.commandline.Root;
+import com.example.hisamoto.commandline.enums.EnumCommandLine;
 import com.example.hisamoto.observer.ObserverTeste;
 
 public class ShowActivity extends Activity implements Observer{
@@ -86,6 +88,9 @@ public class ShowActivity extends Activity implements Observer{
 
             startActivity(intent);
         }
+
+        Root.getInstance().run(EnumCommandLine.ALTERARBRILHO.getComandoParametro("250"));
+        Root.getInstance().run(EnumCommandLine.BARRAINFERIORESCONDER.getComando());
     }
 
     @Override
