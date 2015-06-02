@@ -2,6 +2,7 @@ package com.example.hisamoto;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 import com.example.hisamoto.broadcast.BroadCastTeste;
 import com.example.hisamoto.observer.ObserverTeste;
 
@@ -31,10 +33,23 @@ public class MainActivity extends Activity implements Observer{
 
         Context contexto = getApplicationContext();
 
-        contexto.registerReceiver(new BroadCastTeste(), new IntentFilter("HisamotoBroadCast"));
+        contexto.registerReceiver(broadcastTeste, new IntentFilter("HisamotoBroadCast"));
         // MainActivity
     }
-    
+
+    private BroadcastReceiver broadcastTeste = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            String nome = intent.getStringExtra("nome");
+            String gmail = intent.getStringExtra("gmail");
+
+            Log.i("broadcasthisamoto", "[BROADCAST] Mensagem recebido por broadcast: " + nome + " email:" + gmail);
+            Toast.makeText(getApplicationContext(), "[BROADCAST] Mensagem recebido por broadcast: " + nome + " email:" + gmail, Toast.LENGTH_SHORT).show();
+        }
+    };
+
     public void setMensagem(String titulo, String mensagem) {
     	AlertDialog.Builder caixaDialog = new AlertDialog.Builder(MainActivity.this);
 		caixaDialog.setMessage(mensagem);
