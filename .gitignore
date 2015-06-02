@@ -2,6 +2,7 @@
 bin/
 gen/
 out/
+libs/
 estudoAndroid.iml
 .gitignore~
 .settings/
