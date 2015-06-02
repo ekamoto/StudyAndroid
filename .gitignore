@@ -6,3 +6,7 @@ libs/
 estudoAndroid.iml
 .gitignore~
 .settings/
+.classpath
+.project
+proguard-project.txt
+project.properties
