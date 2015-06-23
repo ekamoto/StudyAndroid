@@ -12,10 +12,12 @@ public class UsuarioDAO {
 	
 	private SQLiteDatabase db;
 	private Cursor cursor;
-	
-	public UsuarioDAO(Context context) {
-		BDCore auxBD = new BDCore(context);
-		db = auxBD.getWritableDatabase();
+    private BDCore auxBD;
+
+    public UsuarioDAO(Context context) {
+
+		auxBD = BDCore.getInstance(context);
+
 	}
 	
 	public SQLiteDatabase getDB() {
@@ -23,7 +25,9 @@ public class UsuarioDAO {
 	}
 	
 	public void inserir(Usuario usuario) {
-		
+
+        db = auxBD.getWritableDatabase();
+
 		Log.i("agenda", "entrou na função inserir");
 		
 		ContentValues valores = new ContentValues();
@@ -42,6 +46,8 @@ public class UsuarioDAO {
     }
 
 	public void listarUsuarios() {
+
+        db = auxBD.getReadableDatabase();
 		try {
     		String[] colunas = {"nome", "email"};
     		cursor = db.query(
@@ -81,6 +87,7 @@ public class UsuarioDAO {
 	public ArrayList<String> getUsuarios() {
 		
 		final ArrayList<String> list = new ArrayList<String>();
+        db = auxBD.getReadableDatabase();
 		
 		try {
     		String[] colunas = {"id", "nome", "email"};

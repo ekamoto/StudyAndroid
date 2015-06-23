@@ -6,19 +6,30 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.view.View.OnClickListener;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 import com.example.hisamoto.broadcast.BroadCastTeste;
 import com.example.hisamoto.observer.ObserverTeste;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.util.Observable;
 import java.util.Observer;
 
-public class MainActivity extends Activity implements Observer{
-	
+public class MainActivity extends Activity implements Observer, OnClickListener{
+
+    private String SAMPLE_DB_NAME = "bancoLeandro2";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +45,59 @@ public class MainActivity extends Activity implements Observer{
         Context contexto = getApplicationContext();
 
         contexto.registerReceiver(broadcastTeste, new IntentFilter("HisamotoBroadCast"));
+
+        findViewById(R.id.button1).setOnClickListener((android.view.View.OnClickListener)this);
+        findViewById(R.id.button2).setOnClickListener((android.view.View.OnClickListener)this);
+        findViewById(R.id.button3).setOnClickListener((android.view.View.OnClickListener) this);
+
         // MainActivity
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()) {
+            case R.id.button1:
+                deleteDB();
+                break;
+            case R.id.button2:
+                exportDB();
+                break;
+            case R.id.button3:
+                createDB();
+                break;
+        }
+    }
+
+    private void deleteDB(){
+        boolean result = this.deleteDatabase(SAMPLE_DB_NAME);
+        if (result==true) {
+            Toast.makeText(this, "DB Deleted!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void createDB() {
+
+    }
+
+    private void exportDB(){
+        File sd = Environment.getExternalStorageDirectory();
+        File data = Environment.getDataDirectory();
+        FileChannel source=null;
+        FileChannel destination=null;
+        String currentDBPath = "/data/"+ "com.example.hisamoto" +"/databases/"+SAMPLE_DB_NAME;
+        String backupDBPath = SAMPLE_DB_NAME + ".sqlite";
+        File currentDB = new File(data, currentDBPath);
+        File backupDB = new File(sd, backupDBPath);
+        try {
+            source = new FileInputStream(currentDB).getChannel();
+            destination = new FileOutputStream(backupDB).getChannel();
+            destination.transferFrom(source, 0, source.size());
+            source.close();
+            destination.close();
+            Toast.makeText(this, "DB Exported!", Toast.LENGTH_LONG).show();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private BroadcastReceiver broadcastTeste = new BroadcastReceiver() {
@@ -76,7 +139,8 @@ public class MainActivity extends Activity implements Observer{
     	
     	if(item.getItemId()==R.action_activity_principal.botaoAdicionarContato) {
     		Log.i("agenda", "Botão adicionar");
-    		abrirTelaAdicionarContato();
+    		//abrirTelaAdicionarContato();
+            abrirTelaMonito();
     	} else if(item.getItemId()==R.action_activity_principal.botaoPesquisar){ 
     		Log.i("agenda", "Botão pesquisar");
     		iniciarPesquisa();
@@ -93,6 +157,14 @@ public class MainActivity extends Activity implements Observer{
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
+    private void abrirTelaMonito() {
+        Intent it = new Intent();
+        it.setClass(this, ShakeActivity.class);
+        it.putExtra("valor_nome", "Leandro Shindi Ekamoto");
+        startActivity(it);
+    }
+
     private void abrirTelaAdicionarContato() {
     	Intent it = new Intent();
     	it.setClass(this, FormActivity.class);
