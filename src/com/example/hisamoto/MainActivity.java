@@ -34,10 +34,15 @@ public class MainActivity extends Activity implements Observer, OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // startService(new Intent(getApplicationContext(), ServiceTeste.class));
-        startService(new Intent("INICIAR_SERVICO"));
 
-        Log.i("servico", "Prova que é thread");
+        // Porcaria de Service feito errado
+        // startService(new Intent(getApplicationContext(), ServiceTeste.class));
+        // startService(new Intent("INICIAR_SERVICO"));
+
+        Intent intent = new Intent("br.com.hisamoto.service.INICIAR_SERVICO_EXEMPLO");
+        startService(intent);
+
+        Log.i("service", "Prova que é thread");
 
         ObserverTeste.getInstance().start();
         ObserverTeste.getInstance().addObserver(this);

@@ -47,6 +47,13 @@
             </intent-filter>
         </service>
 
+        <service android:name=".service.ExemploDeService">
+            <intent-filter>
+                <action android:name="br.com.hisamoto.service.INICIAR_SERVICO_EXEMPLO" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>
