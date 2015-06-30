@@ -2,12 +2,12 @@ package com.example.hisamoto;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.view.View.OnClickListener;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -15,7 +15,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-import com.example.hisamoto.broadcast.BroadCastTeste;
 import com.example.hisamoto.observer.ObserverTeste;
 
 import java.io.File;
@@ -47,15 +46,14 @@ public class MainActivity extends Activity implements Observer, OnClickListener{
         ObserverTeste.getInstance().start();
         ObserverTeste.getInstance().addObserver(this);
 
-        Context contexto = getApplicationContext();
-
-        contexto.registerReceiver(broadcastTeste, new IntentFilter("HisamotoBroadCast"));
+        // Context contexto = getApplicationContext();
+        // Tanto faz utilizar getApplicationContext ou Usar uma classe para isso
+        // Mas existe casos em que o contexto não vai ser acessível, por isso a classe
+        ApplicationContextProvider.getContext().registerReceiver(broadcastTeste, new IntentFilter("HisamotoBroadCast"));
 
         findViewById(R.id.button1).setOnClickListener((android.view.View.OnClickListener)this);
         findViewById(R.id.button2).setOnClickListener((android.view.View.OnClickListener)this);
         findViewById(R.id.button3).setOnClickListener((android.view.View.OnClickListener) this);
-
-        // MainActivity
     }
 
     @Override
@@ -142,24 +140,22 @@ public class MainActivity extends Activity implements Observer, OnClickListener{
     @Override
 	public boolean onOptionsItemSelected(MenuItem item) {
     	
-    	if(item.getItemId()==R.action_activity_principal.botaoAdicionarContato) {
+    	if(item.getItemId()==R.id.botaoAdicionarContato) {
+
     		Log.i("agenda", "Botão adicionar");
-    		//abrirTelaAdicionarContato();
-            abrirTelaMonito();
-    	} else if(item.getItemId()==R.action_activity_principal.botaoPesquisar){ 
+    		abrirTelaAdicionarContato();
+
+            //abrirTelaMonito();
+    	} else if(item.getItemId()==R.id.botaoPesquisar){
+
     		Log.i("agenda", "Botão pesquisar");
     		iniciarPesquisa();
-    	} else {
-    		Log.i("agenda", "Seila");
+    	} else if(item.getItemId()==R.id.action_settings){
+
+    		Log.i("agenda", "Clicou em opções");
+            Toast.makeText(getApplicationContext(),"Clicou em opções",Toast.LENGTH_SHORT).show();
     	}
-    	
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
+
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -172,7 +168,7 @@ public class MainActivity extends Activity implements Observer, OnClickListener{
 
     private void abrirTelaAdicionarContato() {
     	Intent it = new Intent();
-    	it.setClass(this, FormActivity.class);
+    	it.setClass(ApplicationContextProvider.getContext(), FormActivity.class);
     	it.putExtra("valor_nome", "Leandro Shindi Ekamoto");
     	startActivity(it);
     }
@@ -180,7 +176,7 @@ public class MainActivity extends Activity implements Observer, OnClickListener{
     private void iniciarPesquisa() {
     	buscarDados();
     	Intent it = new Intent();
-    	it.setClass(this, ShowActivity.class);
+    	it.setClass(ApplicationContextProvider.getContext(), ShowActivity.class);
     	it.putExtra("valor_nome", "Leandro Shindi Ekamoto");
     	startActivity(it);
     }

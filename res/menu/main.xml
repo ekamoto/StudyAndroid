@@ -2,17 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:hisamoto = "http://schemas.android.com/apk/res-auto"
     tools:context="com.example.hisamoto.MainActivity" >
-    
+
     <item
-        android:id="@+action_activity_principal/botaoPesquisar" 
-        android:title="Pesquisar" 
-        android:icon="@drawable/btn_pesquisar" 
-        android:showAsAction="ifRoom"/>
+            android:id="@+id/botaoPesquisar"
+            android:title="Pesquisar"
+            android:icon="@drawable/btn_pesquisar"
+            android:showAsAction="ifRoom"/>
+
     <item
-        android:id="@+action_activity_principal/botaoAdicionarContato" 
-        android:title="Adicionar Contato" 
-        android:icon="@drawable/btn_adicionar" 
-        android:showAsAction="ifRoom"/>
+            android:id="@+id/botaoAdicionarContato"
+            android:title="Adicionar Contato"
+            android:icon="@drawable/btn_adicionar"
+            android:showAsAction="ifRoom"/>
     
     <item
         android:id="@+id/action_settings"
