@@ -1,2 +1,1 @@
-# estudoAndroid
-Service, Broadcast, Cadastro e alguns testes
+# Service, Broadcast, Cadastro e alguns testes
